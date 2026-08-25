@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff6f3">
+  <meta name="description" content="پالسی | فروشگاه لوازم آرایشی با فرمولاسیون پوست‌دوست و طراحی معاصر.">
+  <title>Palleci · پالسی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.css">
+  <style>
+    :root{
+      --rose:#c45c7a;
+      --rose-deep:#8f3d58;
+      --blush:#f3c1cc;
+      --petal:#f7dce3;
+      --porcelain:#fff8f6;
+      --white:#ffffff;
+      --ink:#3a1f28;
+      --muted:#7a5662;
+      --line:rgba(196,92,122,.16);
+      --gold:#c9a27a;
+      --shadow:0 24px 60px rgba(58,31,40,.12);
+      --radius:28px;
+      --nav:76px;
+      --font:Vazirmatn,Outfit,sans-serif;
+      --serif:"Cormorant Garamond",serif;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{min-height:100%}
+    html{scroll-behavior:auto}
+    body{
+      font-family:var(--font);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 500px at 90% -10%, rgba(243,193,204,.55), transparent 50%),
+        radial-gradient(900px 400px at -10% 20%, rgba(247,220,227,.7), transparent 46%),
+        var(--porcelain);
+      overflow-x:hidden;
+      cursor:none;
+    }
+    img{max-width:100%;display:block}
+    button,input,a{font:inherit}
+    button,a,.card,.icon-btn{cursor:none}
+    a{color:inherit;text-decoration:none}
+    button{border:0;background:none;color:inherit}
+    .container{width:min(1180px,calc(100% - 32px));margin-inline:auto}
+    :focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+    .skip{position:absolute;right:12px;top:8px;z-index:80;transform:translateY(-160%);background:var(--ink);color:#fff;padding:10px 14px;border-radius:12px}
+    .skip:focus{transform:none}
+
+    .cursor,.cursor-dot{
+      position:fixed;top:0;left:0;pointer-events:none;z-index:90;border-radius:50%;mix-blend-mode:multiply;
+    }
+    .cursor{width:42px;height:42px;border:1px solid var(--rose);transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),background .25s}
+    .cursor.is-hover{width:68px;height:68px;background:rgba(196,92,122,.12)}
+    .cursor-dot{width:7px;height:7px;background:var(--rose);transform:translate(-50%,-50%)}
+
+    #loader{
+      position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+      background:linear-gradient(160deg,#fff,#f7dce3 55%,#f3c1cc);
+      transition:opacity .7s var(--ease),visibility .7s;
+    }
+    #loader.done{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-mark{text-align:center}
+    .loader-word{display:flex;justify-content:center;gap:4px;font-family:var(--serif);font-size:clamp(42px,8vw,86px);letter-spacing:.18em;color:var(--rose-deep)}
+    .loader-word span{display:inline-block;opacity:0;transform:translateY(28px)}
+    .loader-bar{width:min(220px,50vw);height:2px;margin:22px auto 0;background:rgba(196,92,122,.18);overflow:hidden;border-radius:99px}
+    .loader-bar i{display:block;height:100%;width:0;background:var(--rose)}
+    .loader-sub{margin-top:16px;color:var(--muted);font-size:13px;letter-spacing:.4em}
+
+    .noise{position:fixed;inset:0;pointer-events:none;z-index:70;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+    .announcement{height:36px;display:flex;align-items:center;overflow:hidden;background:var(--ink);color:#fff;font-size:12px}
+    .announcement-track{display:flex;gap:48px;white-space:nowrap;animation:marquee 28s linear infinite}
+    .announcement b{color:var(--blush)}
+
+    header{
+      position:sticky;top:0;z-index:40;height:var(--nav);
+      display:flex;align-items:center;
+      background:rgba(255,248,246,.72);
+      backdrop-filter:blur(22px) saturate(160%);
+      -webkit-backdrop-filter:blur(22px) saturate(160%);
+      border-bottom:1px solid rgba(255,255,255,.5);
+    }
+    .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;width:min(1180px,calc(100% - 28px));margin-inline:auto}
+    .nav-links{display:flex;gap:4px}
+    .nav-links a{
+      min-height:44px;padding:10px 14px;display:grid;place-items:center;
+      border-radius:999px;color:var(--muted);font-size:14px;font-weight:500;transition:.25s var(--ease)
+    }
+    .nav-links a:hover,.nav-links a.active{color:var(--rose-deep);background:rgba(255,255,255,.7)}
+    .logo{display:grid;justify-items:center;line-height:1}
+    .logo strong{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.22em;color:var(--rose-deep)}
+    .logo small{margin-top:2px;font-size:10px;letter-spacing:.5em;color:var(--muted)}
+    .nav-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+    .icon-btn{
+      width:46px;height:46px;display:grid;place-items:center;border-radius:50%;
+      background:rgba(255,255,255,.7);border:1px solid var(--line);position:relative;transition:.25s var(--ease)
+    }
+    .icon-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(196,92,122,.16)}
+    .icon-btn svg{width:20px;height:20px}
+    .badge{position:absolute;top:4px;left:4px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:var(--rose);color:#fff;font-size:10px;display:grid;place-items:center}
+    .menu-toggle{display:none}
+    .account-chip{display:flex;align-items:center;gap:8px;min-height:46px;padding:4px 12px 4px 4px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+    .account-chip img{width:34px;height:34px;border-radius:50%;background:var(--petal)}
+    .account-chip span{font-size:13px;font-weight:600}
+
+    .hero{position:relative;padding:28px 0 10px}
+    .hero-stage{
+      position:relative;min-height:min(78vh,760px);border-radius:40px;overflow:hidden;
+      background:#ead3d8;box-shadow:var(--shadow)
+    }
+    .hero-stage img{width:100%;height:100%;min-height:min(78vh,760px);object-fit:cover;transform:scale(1.08)}
+    .hero-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(58,31,40,.28),transparent 55%,rgba(255,248,246,.18))}
+    .hero-copy{position:absolute;inset:auto 6% 9% auto;max-width:560px;color:#fff}
+    .hero-copy .tag{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(12px);font-size:12px}
+    .hero-copy h1{margin:18px 0 12px;font-family:var(--serif);font-size:clamp(44px,7vw,88px);line-height:.95;font-weight:600}
+    .hero-copy p{max-width:420px;color:rgba(255,255,255,.88);font-size:16px;line-height:1.9}
+    .hero-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+    .btn{
+      min-height:50px;padding:12px 22px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;
+      font-weight:600;transition:transform .25s var(--ease),box-shadow .25s
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--white);color:var(--rose-deep);box-shadow:0 12px 30px rgba(58,31,40,.18)}
+    .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3)}
+    .float-card{
+      position:absolute;top:12%;left:7%;width:min(240px,70vw);padding:16px;border-radius:22px;
+      background:rgba(255,255,255,.78);backdrop-filter:blur(18px);box-shadow:var(--shadow)
+    }
+    .float-card small{color:var(--muted);font-size:11px}
+    .float-card strong{display:block;margin:4px 0 10px;font-family:var(--serif);font-size:28px}
+    .pulse{width:8px;height:8px;border-radius:50%;background:#22c58b;box-shadow:0 0 0 0 rgba(34,197,139,.5);animation:pulse 2s infinite}
+
+    .ribbon{padding:22px 0;overflow:hidden}
+    .ribbon-track{display:flex;gap:36px;width:max-content;animation:marquee 32s linear infinite}
+    .ribbon-track span{font-family:var(--serif);font-size:28px;color:var(--rose);white-space:nowrap}
+
+    .section{padding:72px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:32px}
+    .kicker{color:var(--rose);font-size:12px;letter-spacing:.28em;margin-bottom:8px}
+    h2{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.15}
+    .muted{color:var(--muted);line-height:1.9}
+
+    .search-inline{display:flex;align-items:center;gap:10px;min-height:52px;padding:6px 8px 6px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);min-width:min(340px,100%);position:relative}
+    .search-inline input{flex:1;border:0;background:transparent;min-height:40px;outline:none;color:var(--ink)}
+    .search-inline button{width:40px;height:40px;border-radius:50%;background:var(--rose);color:#fff;display:grid;place-items:center}
+    .suggest{
+      position:absolute;top:calc(100% + 8px);right:0;left:0;z-index:8;background:#fff;border-radius:18px;
+      box-shadow:var(--shadow);padding:8px;display:none
+    }
+    .suggest.open{display:block}
+    .suggest button{width:100%;text-align:right;padding:10px 12px;border-radius:12px;display:flex;justify-content:space-between}
+    .suggest button:hover{background:var(--porcelain)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:#fff;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.8);
+      box-shadow:0 12px 40px rgba(58,31,40,.06);transition:transform .35s var(--ease),box-shadow .35s
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+    .card-media{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--petal)}
+    .card-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+    .card:hover .card-media img{transform:scale(1.06)}
+    .card-tag{position:absolute;top:14px;right:14px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.86);font-size:11px}
+    .card-body{padding:18px}
+    .card-body h3{font-size:18px;margin-bottom:4px}
+    .en{font-family:var(--serif);color:var(--muted);font-size:14px}
+    .price{margin-top:12px;display:flex;justify-content:space-between;align-items:center}
+    .price b{color:var(--rose-deep)}
+    .add{
+      min-height:42px;padding:8px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;transition:.25s
+    }
+    .add:hover{background:var(--rose)}
+    .empty{grid-column:1/-1;padding:48px;text-align:center;background:#fff;border-radius:24px;color:var(--muted)}
+
+    .ritual{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+    .ritual-panel{padding:36px;border-radius:36px;background:linear-gradient(160deg,#fff,var(--petal));border:1px solid var(--line)}
+    .steps{margin-top:24px;display:grid;gap:14px}
+    .steps li{list-style:none;display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center}
+    .steps b{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--rose);font-family:var(--serif);font-size:20px}
+
+    .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .quote{padding:24px;border-radius:24px;background:#fff;min-height:210px}
+    .stars{color:var(--gold);letter-spacing:2px;margin-bottom:10px}
+
+    .cta{
+      padding:48px;border-radius:36px;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;
+      background:linear-gradient(135deg,var(--rose-deep),var(--rose));color:#fff;overflow:hidden;position:relative
+    }
+    .cta h2{color:#fff}
+    footer{padding:28px 0 110px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+    .overlay{position:fixed;inset:0;background:rgba(58,31,40,.38);opacity:0;pointer-events:none;transition:.3s;z-index:50}
+    .overlay.open{opacity:1;pointer-events:auto}
+    .drawer,.modal,.account-panel{
+      position:fixed;z-index:55;background:#fff;box-shadow:var(--shadow)
+    }
+    .drawer{top:0;bottom:0;left:0;width:min(420px,92vw);transform:translateX(-110%);transition:transform .4s var(--ease);display:flex;flex-direction:column}
+    .drawer.open{transform:none}
+    .modal,.account-panel{
+      top:50%;right:50%;transform:translate(50%,-46%) scale(.96);width:min(460px,92vw);
+      border-radius:28px;padding:24px;opacity:0;pointer-events:none;transition:.3s var(--ease)
+    }
+    .modal.open,.account-panel.open{opacity:1;pointer-events:auto;transform:translate(50%,-50%) scale(1)}
+    .drawer-head,.modal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 18px 8px}
+    .cart-list{padding:8px 18px 18px;overflow:auto;flex:1}
+    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:14px}
+    .cart-foot{padding:16px 18px 22px;border-top:1px solid var(--line)}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--porcelain);border-radius:14px;padding:4px;margin-bottom:16px}
+    .tabs button{min-height:42px;border-radius:10px}
+    .tabs button.active{background:#fff;color:var(--rose-deep);box-shadow:0 6px 16px rgba(58,31,40,.08)}
+    .field{display:grid;gap:6px;margin-bottom:12px}
+    .field label{font-size:13px;font-weight:600}
+    .field input{min-height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--porcelain)}
+    .form-msg{min-height:20px;font-size:13px;color:var(--rose)}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;opacity:0;z-index:80;transition:.3s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .mobile-nav{
+      display:none;position:fixed;right:12px;left:12px;bottom:12px;z-index:45;
+      background:rgba(255,255,255,.9);backdrop-filter:blur(18px);border:1px solid var(--line);
+      border-radius:22px;padding:8px;grid-template-columns:repeat(4,1fr)
+    }
+    .mobile-nav a,.mobile-nav button{min-height:52px;display:grid;place-items:center;gap:2px;font-size:11px;color:var(--muted);border-radius:16px}
+    .mobile-nav svg{width:20px;height:20px}
+    .side-menu{position:fixed;top:12px;right:12px;bottom:12px;width:min(320px,86vw);background:rgba(255,255,255,.94);backdrop-filter:blur(20px);border-radius:24px;z-index:56;transform:translateX(110%);transition:.4s var(--ease);padding:18px;display:flex;flex-direction:column;gap:8px}
+    .side-menu.open{transform:none}
+    .side-menu a{min-height:48px;display:flex;align-items:center;padding:0 12px;border-radius:14px}
+
+    @keyframes marquee{to{transform:translateX(50%)}}
+    @keyframes pulse{70%{box-shadow:0 0 0 10px transparent}}
+
+    @media (max-width:980px){
+      body{cursor:auto}
+      .cursor,.cursor-dot{display:none}
+      .nav-links{display:none}
+      .menu-toggle{display:grid}
+      .account-chip span{display:none}
+      .grid,.quotes{grid-template-columns:1fr 1fr}
+      .ritual,.cta,.section-head{grid-template-columns:1fr}
+      .hero-copy{right:5%;left:5%;bottom:6%}
+      .float-card{display:none}
+      .mobile-nav{display:grid}
+      footer{padding-bottom:120px}
+    }
+    @media (max-width:640px){
+      .grid,.quotes{grid-template-columns:1fr}
+      .hero-stage,.hero-stage img{min-height:72vh;border-radius:28px}
+      .hero-copy h1{font-size:46px}
+      .search-inline{width:100%}
+      .section{padding:56px 0}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
+      .cursor,.cursor-dot{display:none}
+      body{cursor:auto}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#shop">پرش به فروشگاه</a>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <div id="loader">
+    <div class="loader-mark">
+      <div class="loader-word" aria-hidden="true">
+        <span>P</span><span>A</span><span>L</span><span>L</span><span>E</span><span>C</span><span>I</span>
+      </div>
+      <div class="loader-bar"><i id="loaderBar"></i></div>
+      <p class="loader-sub">پالسی</p>
+    </div>
+  </div>
+
+  <div class="announcement" aria-hidden="true">
+    <div class="announcement-track" id="announceTrack">
+      <span>ارسال رایگان بالای <b>۲ میلیون تومان</b></span>
+      <span>فرمولاسیون پوست‌دوست · بدون پارابن</span>
+      <span>Palleci Atelier 2027</span>
+      <span>نمونه تینت هدیه با اولین سفارش</span>
+    </div>
+  </div>
+
+  <header>
+    <nav class="nav" aria-label="ناوبری اصلی">
+      <div class="nav-links">
+        <a href="#shop" class="active">فروشگاه</a>
+        <a href="#ritual">آیین مراقبت</a>
+        <a href="#reviews">نظرها</a>
+      </div>
+      <a class="logo" href="#top" aria-label="پالسی، صفحه اصلی">
+        <strong>PALLECI</strong>
+        <small>پالسی</small>
+      </a>
+      <div class="nav-actions">
+        <button class="icon-btn" id="searchOpen" aria-label="جستجو" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" id="accountOpen" aria-label="حساب کاربری" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M5 19c1.6-3 4-4.5 7-4.5S17.4 16 19 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" id="cartOpen" aria-label="سبد خرید" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 7h15l-1.4 8.2A2 2 0 0 1 17.6 17H9.2A2 2 0 0 1 7.2 15.3L5 4H3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="20" r="1.2" fill="currentColor"/><circle cx="17" cy="20" r="1.2" fill="currentColor"/></svg>
+          <span class="badge" id="cartBadge">0</span>
+        </button>
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="منو" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14M5 12h14M5 17h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-stage">
+          <img src="./assets/palleci-hero.png" alt="کمپین زیبایی پالسی، پوست درخشان در نور صورتی ملایم" width="1600" height="900">
+          <div class="hero-veil"></div>
+          <aside class="float-card">
+            <small>وضعیت کلکسیون</small>
+            <strong>۶ محصول زنده</strong>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)"><span class="pulse"></span> موجودی محدود آتلیه</div>
+          </aside>
+          <div class="hero-copy">
+            <span class="tag"> pallete of light · 2027</span>
+            <h1>زیبایی،<br>با ضربان نرم.</h1>
+            <p>پالسی فروشگاه لوازم آرایشی با حس برندهای جهانی است؛ بافت مخملی، رنگ‌های پرسلانی و محصولاتی که روی پوست زنده می‌مانند.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#shop">مشاهده کلکسیون</a>
+              <button class="btn btn-ghost" id="joinCta" type="button">ساخت اکانت</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span>Glow Serum</span><span>Velvet Tint</span><span>Cloud Cream</span><span>Rose Aura</span><span>Silk Blush</span><span>Dew Cleanser</span>
+        <span>Glow Serum</span><span>Velvet Tint</span><span>Cloud Cream</span><span>Rose Aura</span><span>Silk Blush</span><span>Dew Cleanser</span>
+      </div>
+    </div>
+
+    <section class="section" id="shop">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="kicker">THE EDIT</p>
+            <h2>شش قطعه، یک pallete.</h2>
+            <p class="muted">جستجو کنید، فیلتر زنده ببینید و مستقیم به سبد اضافه کنید.</p>
+          </div>
+          <form class="search-inline" id="searchForm" role="search">
+            <label class="visually-hidden" for="searchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">جستجوی محصول</label>
+            <input id="searchInput" type="search" name="q" placeholder="سرم، تینت، عطر..." autocomplete="off">
+            <button type="submit" aria-label="اجرای جستجو">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="suggest" id="suggest" role="listbox"></div>
+          </form>
+        </div>
+        <div class="grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="ritual">
+      <div class="container ritual">
+        <div class="ritual-panel">
+          <p class="kicker">RITUAL</p>
+          <h2>چهار حرکت برای پوستی که نفس می‌کشد.</h2>
+          <p class="muted">ترتیب استفاده از کلکسیون پالسی مثل خانه‌های زیبایی سئول و پاریس طراحی شده؛ کوتاه، لایه‌لایه، درخشان.</p>
+          <ol class="steps">
+            <li><b>01</b><span>شوینده شبنم برای شروع نرم</span></li>
+            <li><b>02</b><span>سرم درخشش به‌عنوان لایه نور</span></li>
+            <li><b>03</b><span>کرم ابری برای قفل رطوبت</span></li>
+            <li><b>04</b><span>تینت و رژگونه برای pallete نهایی</span></li>
+          </ol>
+        </div>
+        <img src="./assets/palleci-serum.png" alt="سرم درخشش پالسی روی سینی پرسلان" width="800" height="1066" style="border-radius:36px;height:100%;object-fit:cover;min-height:420px">
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="kicker">VOICES</p>
+            <h2>از آتلیه‌های دیگر.</h2>
+          </div>
+        </div>
+        <div class="quotes">
+          <article class="quote"><div class="stars">★★★★★</div><p>حس Rare Beauty را دارد اما با بافت خیلی سبک‌تر. تینت روی لب نمی‌خشکد.</p><br><strong>سارا م.</strong></article>
+          <article class="quote"><div class="stars">★★★★★</div><p>پکیجینگ مثل برندهای اروپایی است. سرم بوی گل ندارد؛ تمیز و مدرن است.</p><br><strong>نیکا ر.</strong></article>
+          <article class="quote"><div class="stars">★★★★★</div><p>کرم ابری زیر میکاپ پخش می‌شود. دقیقاً همان finish شیشه‌ای که می‌خواستم.</p><br><strong>النا ک.</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <p class="kicker" style="color:#fff">MEMBERSHIP</p>
+            <h2>اکانت پالسی، pallete شخصی شما.</h2>
+            <p>با ساخت حساب، سبد ذخیره می‌شود و پیشنهادهای جستجو دقیق‌تر می‌شود.</p>
+          </div>
+          <button class="btn btn-primary" id="joinCta2" type="button">ثبت‌نام رایگان</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <span>© 2027 Palleci / پالسی</span>
+    <span>آتلیه زیبایی · صورتی، سفید، زنده</span>
+  </footer>
+
+  <nav class="mobile-nav" aria-label="ناوبری موبایل">
+    <a href="#shop"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16l-1 11H5L4 8Zm4-3h8l2 3H6l2-3Z" stroke="currentColor" stroke-width="1.7"/></svg>فروشگاه</a>
+    <button type="button" id="mobileSearch"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/></svg>جستجو</button>
+    <button type="button" id="mobileAccount"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5" stroke="currentColor" stroke-width="1.7"/></svg>اکانت</button>
+    <button type="button" id="mobileCart"><svg viewBox="0 0 24 24" fill="none"><path d="M6 7h15l-1.5 8H8L6 7Z" stroke="currentColor" stroke-width="1.7"/></svg>سبد</button>
+  </nav>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="side-menu" id="sideMenu" aria-hidden="true">
+    <button class="icon-btn" id="sideClose" type="button" aria-label="بستن">✕</button>
+    <a href="#shop">فروشگاه</a>
+    <a href="#ritual">آیین مراقبت</a>
+    <a href="#reviews">نظرها</a>
+  </aside>
+  <aside class="drawer" id="cartDrawer" aria-label="سبد خرید">
+    <div class="drawer-head"><h3>سبد پالسی</h3><button class="icon-btn" id="cartClose" type="button" aria-label="بستن سبد">✕</button></div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="cart-foot">
+      <p id="cartTotal">جمع: ۰ تومان</p>
+      <button class="btn btn-primary" id="checkoutBtn" type="button" style="width:100%;margin-top:12px;justify-content:center">ادامه خرید</button>
+    </div>
+  </aside>
+  <div class="modal" id="authModal" role="dialog" aria-labelledby="authTitle">
+    <div class="modal-head"><h3 id="authTitle">ورود / ثبت‌نام</h3><button class="icon-btn" id="authClose" type="button" aria-label="بستن">✕</button></div>
+    <div class="tabs">
+      <button type="button" class="active" data-tab="login">ورود</button>
+      <button type="button" data-tab="signup">ساخت اکانت</button>
+    </div>
+    <form id="loginForm">
+      <div class="field"><label for="loginEmail">ایمیل</label><input id="loginEmail" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="loginPass">رمز عبور</label><input id="loginPass" type="password" required minlength="6" autocomplete="current-password"></div>
+      <p class="form-msg" id="loginMsg"></p>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">ورود</button>
+    </form>
+    <form id="signupForm" hidden>
+      <div class="field"><label for="signName">نام</label><input id="signName" required autocomplete="name"></div>
+      <div class="field"><label for="signEmail">ایمیل</label><input id="signEmail" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="signPass">رمز عبور</label><input id="signPass" type="password" required minlength="6" autocomplete="new-password"></div>
+      <p class="form-msg" id="signupMsg"></p>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">ساخت اکانت</button>
+    </form>
+  </div>
+  <div class="account-panel" id="accountPanel" role="dialog" aria-label="حساب من">
+    <div class="modal-head"><h3>حساب من</h3><button class="icon-btn" id="accountClose" type="button" aria-label="بستن">✕</button></div>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px">
+      <img id="userAvatar" alt="" width="56" height="56" style="border-radius:50%">
+      <div><strong id="userName"></strong><p class="muted" id="userEmail"></p></div>
+    </div>
+    <button class="btn" id="logoutBtn" type="button" style="width:100%;justify-content:center;background:var(--petal);color:var(--rose-deep)">خروج از حساب</button>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+  <script>
+    const PRODUCTS = [
+      {id:"serum", name:"سرم درخشش ویل", en:"Glow Veil Serum", price:1890000, tag:"Hero", img:"./assets/palleci-serum.png", keys:"سرم serum glow veil درخشش"},
+      {id:"liptint", name:"تینت مخملی لب", en:"Velvet Lip Tint", price:890000, tag:"New", img:"./assets/palleci-liptint.png", keys:"تینت لب lip tint velvet"},
+      {id:"cream", name:"کرم ابری", en:"Cloud Cream", price:1450000, tag:"Hydra", img:"./assets/palleci-cream.png", keys:"کرم cream cloud ابری"},
+      {id:"perfume", name:"عطر رز آورا", en:"Rose Aura", price:2450000, tag:"Atelier", img:"./assets/palleci-perfume.png", keys:"عطر perfume rose رز"},
+      {id:"blush", name:"رژگونه ابریشم", en:"Silk Blush", price:1120000, tag:"Color", img:"./assets/palleci-blush.png", keys:"رژگونه blush silk"},
+      {id:"cleanser", name:"شوینده شبنم", en:"Dew Cleanser", price:780000, tag:"Ritual", img:"./assets/palleci-cleanser.png", keys:"شوینده cleanser dew پاک"}
+    ];
+    const money = n => n.toLocaleString("fa-IR") + " تومان";
+    const toast = msg => { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"), 2800); };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const users = () => JSON.parse(localStorage.getItem("palleci-users") || "[]");
+    const saveUsers = list => localStorage.setItem("palleci-users", JSON.stringify(list));
+    const session = () => JSON.parse(localStorage.getItem("palleci-session") || "null");
+    const setSession = user => localStorage.setItem("palleci-session", JSON.stringify(user));
+    const cart = () => JSON.parse(localStorage.getItem("palleci-cart") || "[]");
+    const saveCart = list => localStorage.setItem("palleci-cart", JSON.stringify(list));
+
+    const grid = document.getElementById("productGrid");
+    const suggest = document.getElementById("suggest");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderProducts(list){
+      if(!list.length){
+        grid.innerHTML = `<div class="empty">نتیجه‌ای پیدا نشد. سرم، تینت یا عطر را امتحان کنید.</div>`;
+        return;
+      }
+      grid.innerHTML = list.map(p => `
+        <article class="card" data-tilt data-id="${p.id}">
+          <div class="card-media">
+            <span class="card-tag">${p.tag}</span>
+            <img src="${p.img}" alt="${p.name}" width="600" height="800">
+          </div>
+          <div class="card-body">
+            <h3>${p.name}</h3>
+            <p class="en">${p.en}</p>
+            <div class="price"><b>${money(p.price)}</b><button class="add" data-add="${p.id}" type="button">افزودن</button></div>
+          </div>
+        </article>`).join("");
+      if(window.VanillaTilt && window.innerWidth > 980 && !reduce){
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {max:8, speed:500, glare:true, "max-glare":.18});
+      }
+    }
+    const filterProducts = q => PRODUCTS.filter(p => (p.name + p.en + p.keys).toLowerCase().includes(q.trim().toLowerCase()));
+    renderProducts(PRODUCTS);
+
+    function renderSuggest(q){
+      const hits = filterProducts(q).slice(0,5);
+      if(!q || !hits.length){ suggest.classList.remove("open"); suggest.innerHTML=""; return; }
+      suggest.innerHTML = hits.map(p => `<button type="button" data-jump="${p.id}"><span>${p.name}</span><span class="en">${p.en}</span></button>`).join("");
+      suggest.classList.add("open");
+    }
+    searchInput.addEventListener("input", e => {
+      const q = e.target.value;
+      renderSuggest(q);
+      renderProducts(q ? filterProducts(q) : PRODUCTS);
+    });
+    document.getElementById("searchForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const q = searchInput.value;
+      renderProducts(q ? filterProducts(q) : PRODUCTS);
+      suggest.classList.remove("open");
+      document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+      toast(q ? `نتایج «${q}»` : "همه محصولات");
+    });
+    suggest.addEventListener("click", e => {
+      const btn = e.target.closest("[data-jump]");
+      if(!btn) return;
+      searchInput.value = PRODUCTS.find(p=>p.id===btn.dataset.jump).name;
+      renderProducts(filterProducts(searchInput.value));
+      suggest.classList.remove("open");
+    });
+
+    function renderCart(){
+      const list = cart();
+      const wrap = document.getElementById("cartList");
+      document.getElementById("cartBadge").textContent = list.reduce((s,i)=>s+i.qty,0);
+      if(!list.length){ wrap.innerHTML = "<p class='muted'>سبد خالی است.</p>"; document.getElementById("cartTotal").textContent = "جمع: ۰ تومان"; return; }
+      wrap.innerHTML = list.map(i => {
+        const p = PRODUCTS.find(x=>x.id===i.id);
+        return `<div class="cart-item"><img src="${p.img}" alt=""><div><strong>${p.name}</strong><p class="muted">${i.qty} × ${money(p.price)}</p></div><button type="button" data-remove="${i.id}">حذف</button></div>`;
+      }).join("");
+      const total = list.reduce((s,i)=>s+PRODUCTS.find(p=>p.id===i.id).price*i.qty,0);
+      document.getElementById("cartTotal").textContent = "جمع: " + money(total);
+    }
+    function addToCart(id){
+      const list = cart();
+      const found = list.find(i=>i.id===id);
+      if(found) found.qty += 1; else list.push({id, qty:1});
+      saveCart(list); renderCart(); toast("به سبد اضافه شد");
+    }
+    grid.addEventListener("click", e => { const b = e.target.closest("[data-add]"); if(b) addToCart(b.dataset.add); });
+    document.getElementById("cartList").addEventListener("click", e => {
+      const b = e.target.closest("[data-remove]");
+      if(!b) return;
+      saveCart(cart().filter(i=>i.id!==b.dataset.remove));
+      renderCart();
+    });
+    renderCart();
+
+    const overlay = document.getElementById("overlay");
+    const ui = {
+      cart: document.getElementById("cartDrawer"),
+      auth: document.getElementById("authModal"),
+      account: document.getElementById("accountPanel"),
+      menu: document.getElementById("sideMenu")
+    };
+    function closeAll(){
+      Object.values(ui).forEach(el => el.classList.remove("open"));
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    function openUI(key){
+      closeAll();
+      ui[key].classList.add("open");
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    overlay.addEventListener("click", closeAll);
+    document.getElementById("cartOpen").onclick = () => openUI("cart");
+    document.getElementById("mobileCart").onclick = () => openUI("cart");
+    document.getElementById("cartClose").onclick = closeAll;
+    document.getElementById("menuToggle").onclick = () => openUI("menu");
+    document.getElementById("sideClose").onclick = closeAll;
+    document.querySelectorAll("#sideMenu a").forEach(a => a.addEventListener("click", closeAll));
+    document.getElementById("searchOpen").onclick = () => { searchInput.focus(); document.getElementById("shop").scrollIntoView({behavior:"smooth"}); };
+    document.getElementById("mobileSearch").onclick = () => { document.getElementById("shop").scrollIntoView({behavior:"smooth"}); searchInput.focus(); };
+
+    function refreshAccount(){
+      const user = session();
+      const chip = document.querySelector(".account-chip");
+      if(chip) chip.remove();
+      if(user){
+        const btn = document.createElement("button");
+        btn.className = "account-chip";
+        btn.type = "button";
+        btn.innerHTML = `<img alt="" src="https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=f7dce3"><span>${user.name}</span>`;
+        btn.onclick = () => {
+          document.getElementById("userName").textContent = user.name;
+          document.getElementById("userEmail").textContent = user.email;
+          document.getElementById("userAvatar").src = `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=f7dce3`;
+          openUI("account");
+        };
+        document.getElementById("accountOpen").replaceWith(btn);
+        btn.id = "accountOpen";
+      }
+    }
+    function openAuth(tab="signup"){
+      openUI("auth");
+      document.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("active", b.dataset.tab===tab));
+      document.getElementById("loginForm").hidden = tab !== "login";
+      document.getElementById("signupForm").hidden = tab !== "signup";
+    }
+    document.getElementById("accountOpen").addEventListener("click", () => session() ? openUI("account") : openAuth("login"));
+    document.getElementById("mobileAccount").onclick = () => session() ? openUI("account") : openAuth("signup");
+    document.getElementById("joinCta").onclick = () => openAuth("signup");
+    document.getElementById("joinCta2").onclick = () => openAuth("signup");
+    document.getElementById("authClose").onclick = closeAll;
+    document.getElementById("accountClose").onclick = closeAll;
+    document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => openAuth(b.dataset.tab)));
+
+    document.getElementById("signupForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const name = signName.value.trim();
+      const email = signEmail.value.trim().toLowerCase();
+      const password = signPass.value;
+      const msg = document.getElementById("signupMsg");
+      if(users().some(u => u.email===email)){ msg.textContent = "این ایمیل قبلاً ثبت شده."; return; }
+      const next = [...users(), {name,email,password}];
+      saveUsers(next); setSession({name,email});
+      msg.textContent = ""; closeAll(); refreshAccount(); toast("اکانت پالسی ساخته شد");
+    });
+    document.getElementById("loginForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const email = loginEmail.value.trim().toLowerCase();
+      const password = loginPass.value;
+      const user = users().find(u => u.email===email && u.password===password);
+      const msg = document.getElementById("loginMsg");
+      if(!user){ msg.textContent = "ایمیل یا رمز نادرست است."; return; }
+      setSession({name:user.name,email:user.email});
+      msg.textContent = ""; closeAll(); refreshAccount(); toast("خوش آمدید " + user.name);
+    });
+    document.getElementById("logoutBtn").onclick = () => { localStorage.removeItem("palleci-session"); location.reload(); };
+    document.getElementById("checkoutBtn").onclick = () => {
+      if(!session()){ openAuth("login"); toast("برای ادامه وارد شوید"); return; }
+      if(!cart().length){ toast("سبد خالی است"); return; }
+      saveCart([]); renderCart(); closeAll(); toast("سفارش ثبت شد. به‌زودی با شما تماس می‌گیریم.");
+    };
+    refreshAccount();
+
+    document.addEventListener("keydown", e => { if(e.key==="Escape") closeAll(); });
+
+    const track = document.getElementById("announceTrack");
+    track.innerHTML += track.innerHTML;
+
+    if(!reduce){
+      const cur = document.getElementById("cursor");
+      const dot = document.getElementById("cursorDot");
+      window.addEventListener("pointermove", e => {
+        gsap.to(dot, {x:e.clientX, y:e.clientY, duration:.1});
+        gsap.to(cur, {x:e.clientX, y:e.clientY, duration:.35, ease:"power3.out"});
+      });
+      document.querySelectorAll("a,button,.card").forEach(el => {
+        el.addEventListener("mouseenter", () => cur.classList.add("is-hover"));
+        el.addEventListener("mouseleave", () => cur.classList.remove("is-hover"));
+      });
+    }
+
+    window.addEventListener("load", () => {
+      let started = false;
+      const finish = () => {
+        if(started) return;
+        started = true;
+        document.getElementById("loader").classList.add("done");
+        initMotion();
+      };
+      const letters = document.querySelectorAll(".loader-word span");
+      const bar = document.getElementById("loaderBar");
+      if(reduce || !window.gsap){ finish(); return; }
+      gsap.timeline({onComplete:finish})
+        .to(letters, {opacity:1, y:0, stagger:.07, duration:.55, ease:"power3.out"})
+        .to(bar, {width:"100%", duration:1.1, ease:"power2.inOut"}, "<.1")
+        .to({}, {duration:.2});
+      setTimeout(finish, 3200);
+    });
+
+    function initMotion(){
+      if(reduce || !window.gsap) return;
+      gsap.registerPlugin(ScrollTrigger);
+      const lenis = new Lenis({ lerp:.08, smoothWheel:true });
+      function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      gsap.to(".hero-stage img", {scale:1, duration:2.2, ease:"power2.out"});
+      gsap.from(".hero-copy > *", {y:30, opacity:0, stagger:.12, duration:.8, ease:"power3.out"});
+      gsap.utils.toArray(".card,.quote,.ritual-panel").forEach((el,i) => {
+        gsap.from(el, {y:40, opacity:0, duration:.7, delay:i%3*.08, scrollTrigger:{trigger:el, start:"top 88%"}});
+      });
+    }
+  </script>
+</body>
+</html>
